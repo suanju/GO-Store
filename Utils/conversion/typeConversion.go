@@ -2,11 +2,13 @@ package conversion
 
 import "strings"
 
+// StringConversionMap 字符串转数组
 func StringConversionMap(s string) []string {
 	list := strings.Split(s, ",")
 	return list
 }
 
+// StringImgConversionMap 字符串图片转数组
 func StringImgConversionMap(s string) []string {
 	list := strings.Split(s, ",")
 	for k, v := range list {

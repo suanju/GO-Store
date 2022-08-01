@@ -3,6 +3,7 @@ package goods
 import (
 	"GO-Store/Databases/Mysql"
 	"GO-Store/Models/common"
+	"GO-Store/Models/goodsModel/Comments"
 	"GO-Store/Models/goodsModel/item"
 	"GO-Store/Models/goodsModel/spec"
 	spec2 "GO-Store/Models/goodsModel/specValue"
@@ -45,6 +46,8 @@ type GoodResponse struct {
 	Spec         spec.List              `json:"spec"`
 	SpecValue    spec2.ValueList        `json:"spec_value"`
 	Item         item.ItemsResponseList `json:"item"`
+	SeverList    []string               `json:"sever_list"`
+	Comments     Comments.Comments      `json:"comments" `
 }
 
 func (g *Goods) Response() GoodResponse {
@@ -61,6 +64,8 @@ func (g *Goods) Response() GoodResponse {
 		Spec:         g.Spec,
 		SpecValue:    g.SpecValue.Response(),
 		Item:         g.Item.Response(),
+		SeverList:    g.SeverList.ConversionRsp(),
+		Comments:     g.Comments,
 	}
 	return info
 }
