@@ -11,6 +11,8 @@ type Comments struct {
 	Image       string `json:"image" gorm:"image"`
 }
 
+type List []Comments
+
 func (Comments) TableName() string {
 	return "ml_goods_comments"
 }

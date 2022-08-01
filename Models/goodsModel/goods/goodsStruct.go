@@ -47,7 +47,7 @@ type GoodResponse struct {
 	SpecValue    spec2.ValueList        `json:"spec_value"`
 	Item         item.ItemsResponseList `json:"item"`
 	SeverList    []string               `json:"sever_list"`
-	Comments     comments.Comments      `json:"comments" `
+	Comments     comments.List          `json:"comments" `
 }
 
 func (g *Goods) Response() GoodResponse {
