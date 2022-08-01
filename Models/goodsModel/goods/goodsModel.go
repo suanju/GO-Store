@@ -3,7 +3,7 @@ package goods
 import (
 	"GO-Store/Databases/Mysql"
 	"GO-Store/Models/common"
-	"GO-Store/Models/goodsModel/Comments"
+	"GO-Store/Models/goodsModel/comments"
 	"GO-Store/Models/goodsModel/item"
 	"GO-Store/Models/goodsModel/service"
 	"GO-Store/Models/goodsModel/spec"
@@ -54,7 +54,7 @@ type Goods struct {
 	SpecValue spec2.ValueList       `json:"spec_value" gorm:"foreignKey:GoodsId"`
 	Item      item.List             `json:"item" gorm:"foreignKey:GoodsId"`
 	SeverList service.ServicesLists `json:"sever_list" gorm:"foreignKey:GoodsId"`
-	Comments  Comments.Comments     `json:"comments" gorm:"foreignKey:GoodsId"`
+	Comments  comments.Comments     `json:"comments" gorm:"foreignKey:GoodsId"`
 }
 type GoodList []Goods
 
@@ -63,7 +63,7 @@ func (Goods) TableName() string {
 }
 
 func (g *Goods) SelectById(id int64) error {
-	err := Mysql.Db.Preload("SpecValue").Preload("Spec").Preload("Item").Preload("SeverList.Service").Preload("Comments").Find(&g, id).Error
+	err := Mysql.Db.Preload("SpecValue").Preload("Spec").Preload("Item").Preload("SeverList.Service").Preload("comments").Find(&g, id).Error
 	if err != nil {
 		return fmt.Errorf("查询失败")
 	}

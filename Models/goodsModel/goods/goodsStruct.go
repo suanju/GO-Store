@@ -3,7 +3,7 @@ package goods
 import (
 	"GO-Store/Databases/Mysql"
 	"GO-Store/Models/common"
-	"GO-Store/Models/goodsModel/Comments"
+	"GO-Store/Models/goodsModel/comments"
 	"GO-Store/Models/goodsModel/item"
 	"GO-Store/Models/goodsModel/spec"
 	spec2 "GO-Store/Models/goodsModel/specValue"
@@ -47,7 +47,7 @@ type GoodResponse struct {
 	SpecValue    spec2.ValueList        `json:"spec_value"`
 	Item         item.ItemsResponseList `json:"item"`
 	SeverList    []string               `json:"sever_list"`
-	Comments     Comments.Comments      `json:"comments" `
+	Comments     comments.Comments      `json:"comments" `
 }
 
 func (g *Goods) Response() GoodResponse {

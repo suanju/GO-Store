@@ -1,4 +1,4 @@
-package Comments
+package comments
 
 import "GO-Store/Models/common"
 
