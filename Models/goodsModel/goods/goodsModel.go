@@ -63,7 +63,7 @@ func (Goods) TableName() string {
 }
 
 func (g *Goods) SelectById(id int64) error {
-	err := Mysql.Db.Preload("SpecValue").Preload("Spec").Preload("Item").Preload("SeverList.Service").Preload("Comments").Find(&g, id).Error
+	err := Mysql.Db.Preload("SpecValue").Preload("Spec").Preload("Item").Preload("SeverList.Service").Preload("Comments.UserInfo").Find(&g, id).Error
 	if err != nil {
 		return fmt.Errorf("查询失败")
 	}

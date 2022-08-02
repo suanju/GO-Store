@@ -43,11 +43,12 @@ type GoodResponse struct {
 	Clicks       int64                  `json:"clicks"`
 	Price        float64                `json:"price"`
 	Stock        int64                  `json:"stock"`
+	Content      string                 `json:"content"`
 	Spec         spec.List              `json:"spec"`
 	SpecValue    spec2.ValueList        `json:"spec_value"`
 	Item         item.ItemsResponseList `json:"item"`
 	SeverList    []string               `json:"sever_list"`
-	Comments     comments.List          `json:"comments" `
+	Comments     comments.ListResponse  `json:"comments" `
 }
 
 func (g *Goods) Response() GoodResponse {
@@ -62,10 +63,11 @@ func (g *Goods) Response() GoodResponse {
 		Price:        g.Price,
 		Stock:        g.Stock,
 		Spec:         g.Spec,
+		Content:      g.Content,
 		SpecValue:    g.SpecValue.Response(),
 		Item:         g.Item.Response(),
 		SeverList:    g.SeverList.ConversionRsp(),
-		Comments:     g.Comments,
+		Comments:     g.Comments.Response(),
 	}
 	return info
 }
