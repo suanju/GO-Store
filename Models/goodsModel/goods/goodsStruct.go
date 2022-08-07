@@ -23,6 +23,12 @@ type GetGoodInfoStruct struct {
 	Id int64 `json:"id"`
 }
 
+type GetCollectionStruct struct {
+	Uid          uint `json:"uid"`
+	GoodsID      uint `json:"goods_id"`
+	IsCollection bool `json:"is_collection"`
+}
+
 /*上面接口结构体---------------------------------------------------------------下面返回数据结构体*/
 
 type GoodListResponse struct {
@@ -36,6 +42,7 @@ type GoodListResponse struct {
 type GoodResponse struct {
 	ID           uint                   `json:"id"`
 	Name         string                 `json:"name"`
+	Image        string                 `json:"image"`
 	ShufflingImg []string               `json:"shuffling_img"`
 	Video        string                 `json:"video"`
 	Remark       string                 `json:"remark"`
@@ -48,13 +55,15 @@ type GoodResponse struct {
 	SpecValue    spec2.ValueList        `json:"spec_value"`
 	Item         item.ItemsResponseList `json:"item"`
 	SeverList    []string               `json:"sever_list"`
-	Comments     comments.ListResponse  `json:"comments" `
+	Comments     comments.ListResponse  `json:"comments"`
+	Like         bool                   `json:"like" `
 }
 
 func (g *Goods) Response() GoodResponse {
 	info := GoodResponse{
 		ID:           g.ID,
 		Name:         g.Name,
+		Image:        conversion.FormattingSrc(g.Image),
 		ShufflingImg: conversion.StringImgConversionMap(g.ShufflingImg),
 		Video:        g.Video,
 		Remark:       g.Remark,
@@ -68,6 +77,7 @@ func (g *Goods) Response() GoodResponse {
 		Item:         g.Item.Response(),
 		SeverList:    g.SeverList.ConversionRsp(),
 		Comments:     g.Comments.Response(),
+		Like:         g.Like.IsLike(),
 	}
 	return info
 }

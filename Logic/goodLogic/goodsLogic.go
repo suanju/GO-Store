@@ -2,6 +2,8 @@ package goodLogic
 
 import (
 	"GO-Store/Models/goodsModel/goods"
+	"GO-Store/Models/usersModel/likeGoods"
+	"fmt"
 )
 
 func GetClassifyByLevel(data *goods.GetClassifyByLevelStruct) (results interface{}, err error) {
@@ -13,13 +15,23 @@ func GetClassifyByLevel(data *goods.GetClassifyByLevelStruct) (results interface
 	results = goodsList.Response()
 	return results, nil
 }
-func GetGoodInfo(data *goods.GetGoodInfoStruct) (results interface{}, err error) {
+
+func GetGoodInfo(data *goods.GetGoodInfoStruct, uid uint) (results interface{}, err error) {
 	goodInfo := new(goods.Goods)
-	if err := goodInfo.SelectById(data.Id); err != nil {
+	if err := goodInfo.SelectById(data.Id, uid); err != nil {
 		return err, err
 	}
 	//点击量
 	goodInfo.ClicksAdd()
 	results = goodInfo.Response()
 	return results, nil
+}
+
+func Collection(data *goods.GetCollectionStruct, uid uint) (results interface{}, err error) {
+	//收藏商品
+	like := new(likeGoods.LikeGoods)
+	if !like.Like(uid, data.GoodsID) {
+		return nil, fmt.Errorf("收藏失败")
+	}
+	return "收藏成功", nil
 }

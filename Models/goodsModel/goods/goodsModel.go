@@ -8,6 +8,7 @@ import (
 	"GO-Store/Models/goodsModel/service"
 	"GO-Store/Models/goodsModel/spec"
 	spec2 "GO-Store/Models/goodsModel/specValue"
+	"GO-Store/Models/usersModel/likeGoods"
 	"fmt"
 )
 
@@ -55,6 +56,8 @@ type Goods struct {
 	Item      item.List             `json:"item" gorm:"foreignKey:GoodsId"`
 	SeverList service.ServicesLists `json:"sever_list" gorm:"foreignKey:GoodsId"`
 	Comments  comments.List         `json:"comments" gorm:"foreignKey:GoodsId"`
+	//用户与商品之间的关系
+	Like likeGoods.LikeGoods `json:"like" gorm:"foreignKey:GoodsId"`
 }
 type GoodList []Goods
 
@@ -62,8 +65,8 @@ func (Goods) TableName() string {
 	return "ml_goods"
 }
 
-func (g *Goods) SelectById(id int64) error {
-	err := Mysql.Db.Preload("SpecValue").Preload("Spec").Preload("Item").Preload("SeverList.Service").Preload("Comments.UserInfo").Find(&g, id).Error
+func (g *Goods) SelectById(id int64, uid uint) error {
+	err := Mysql.Db.Preload("SpecValue").Preload("Spec").Preload("Item").Preload("SeverList.Service").Preload("Comments.UserInfo").Preload("Like", " user_id  =  ?", uid).Find(&g, id).Error
 	if err != nil {
 		return fmt.Errorf("查询失败")
 	}
