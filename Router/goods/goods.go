@@ -17,5 +17,7 @@ func (g *GoodRouter) InitRouter(Router *gin.RouterGroup) {
 		goodRouter.POST("/getClassifyByLevel", goodControllers.GetClassifyByLevel)
 		goodRouter.POST("/getGoodInfo", Middlewares.VerificationToken(), goodControllers.GetGoodInfo)
 		goodRouter.POST("/collection", Middlewares.VerificationToken(), goodControllers.Collection)
+		goodRouter.POST("/addShoppingCart", Middlewares.VerificationToken(), goodControllers.AddShoppingCart)
+		goodRouter.POST("/getShoppingCart", Middlewares.VerificationToken(), goodControllers.GetShoppingCart)
 	}
 }
