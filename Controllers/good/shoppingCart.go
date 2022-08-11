@@ -33,7 +33,7 @@ func (gd GoodsControllers) GetShoppingCart(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.GetShoppingCart(GetShoppingCartReceive, userID)
+	results, err := goodLogic.GetShoppingCart(userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

@@ -19,7 +19,7 @@ func AddShoppingCart(data *shoppingCart2.AddShoppingCart, uid uint) (results int
 	return "加入成功", nil
 }
 
-func GetShoppingCart(data *shoppingCart2.GetShoppingCart, uid uint) (results interface{}, err error) {
+func GetShoppingCart(uid uint) (results interface{}, err error) {
 	//查询当前用用户的购物车
 	shoppingCartList := new(shoppingCart2.List)
 	if err := shoppingCartList.GetList(uid); err != nil {
