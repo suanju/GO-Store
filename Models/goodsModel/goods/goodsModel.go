@@ -10,6 +10,7 @@ import (
 	spec2 "GO-Store/Models/goodsModel/specValue"
 	"GO-Store/Models/usersModel/likeGoods"
 	"fmt"
+	"gorm.io/gorm"
 )
 
 // Goods 商品分类表结构
@@ -101,4 +102,9 @@ func (l *GoodList) SelectByLevel(level int64, pid int64, info common.PageInfo) e
 		return fmt.Errorf("等级错误")
 	}
 	return nil
+}
+
+//ClicksAdd 点击量增加
+func (g *Goods) ClicksAdd() {
+	Mysql.Db.Model(&g).Updates(map[string]interface{}{"clicks": gorm.Expr("Clicks  + ?", 1)})
 }

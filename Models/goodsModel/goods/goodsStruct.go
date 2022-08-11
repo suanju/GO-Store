@@ -1,14 +1,12 @@
 package goods
 
 import (
-	"GO-Store/Databases/Mysql"
 	"GO-Store/Models/common"
 	"GO-Store/Models/goodsModel/comments"
 	"GO-Store/Models/goodsModel/item"
 	"GO-Store/Models/goodsModel/spec"
 	spec2 "GO-Store/Models/goodsModel/specValue"
 	conversion "GO-Store/Utils/conversion"
-	"gorm.io/gorm"
 )
 
 // GetClassifyByLevelStruct 获取分类列表请求结构体
@@ -94,9 +92,4 @@ func (l *GoodList) Response() []GoodListResponse {
 	}
 	return list
 
-}
-
-//ClicksAdd 点击量增加
-func (g *Goods) ClicksAdd() {
-	Mysql.Db.Model(&g).Updates(map[string]interface{}{"clicks": gorm.Expr("Clicks  + ?", 1)})
 }

@@ -11,6 +11,16 @@ type AddShoppingCart struct {
 type GetShoppingCart struct {
 }
 
+type DelShoppingCart struct {
+	ShoppingCartID uint `json:"shoppingCartId"`
+	All            bool `json:"all"`
+}
+
+type ModifyInventory struct {
+	Tp string `json:"tp"`
+	ID uint   `json:"id"`
+}
+
 //返回需要
 
 //LResponse 返回结构体

@@ -4,6 +4,8 @@ import (
 	"GO-Store/Databases/Mysql"
 	"GO-Store/Models/goodsModel/goods"
 	"GO-Store/Models/goodsModel/item"
+	"fmt"
+	"gorm.io/gorm"
 	"time"
 )
 
@@ -36,7 +38,44 @@ func (sc *ShoppingCart) AddGood() bool {
 	return true
 }
 
+//GetList 获取购物车列表
 func (ls *List) GetList(uid uint) error {
 	err := Mysql.Db.Where(ShoppingCart{UserID: uid}).Preload("GoodsInfo").Preload("Item").Find(&ls).Error
 	return err
+}
+
+//Empty 清空购物车
+func (sc ShoppingCart) Empty(uid uint) error {
+	err := Mysql.Db.Where(ShoppingCart{UserID: uid}).Delete(&sc).Error
+	return err
+}
+
+//DelByID 删除根据ID
+func (sc ShoppingCart) DelByID(id uint) error {
+	//判断购物车数据是否存在
+	err := Mysql.Db.Where(ShoppingCart{ID: id}).Find(&sc).Error
+	if err != nil {
+		return fmt.Errorf("数据不存在")
+	}
+	err = Mysql.Db.Where(ShoppingCart{ID: id}).Delete(&sc).Error
+	return err
+}
+
+//ModifyInventory 修改购物车数量
+func (sc *ShoppingCart) ModifyInventory(uid uint, id uint, tp string) error {
+	sc.ID = id
+	err := Mysql.Db.Where(ShoppingCart{ID: id}).Find(&sc).Error
+	if err != nil {
+		return err
+	}
+	if sc.UserID != uid {
+		return fmt.Errorf("不可删除")
+	}
+	if tp == "+" {
+		Mysql.Db.Model(&sc).Updates(map[string]interface{}{"number": gorm.Expr("number  + ?", 1)})
+	} else {
+		Mysql.Db.Model(&sc).Updates(map[string]interface{}{"number": gorm.Expr("number  - ?", 1)})
+	}
+
+	return nil
 }

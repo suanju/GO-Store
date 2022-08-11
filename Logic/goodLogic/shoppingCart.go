@@ -28,3 +28,31 @@ func GetShoppingCart(data *shoppingCart2.GetShoppingCart, uid uint) (results int
 	results = shoppingCartList.Response()
 	return results, nil
 }
+
+func DelShoppingCart(data *shoppingCart2.DelShoppingCart, uid uint) (results interface{}, err error) {
+	//判断是否为清空购物车
+	shoppingCart := new(shoppingCart2.ShoppingCart)
+	if data.All {
+		if err := shoppingCart.Empty(uid); err != nil {
+			return fmt.Errorf("清空失败"), nil
+		}
+		return "清空成功", nil
+	} else {
+		//删除单条数据
+		if err := shoppingCart.DelByID(data.ShoppingCartID); err != nil {
+			return fmt.Errorf("删除失败"), nil
+		}
+		return "删除成功", nil
+	}
+}
+
+func ModifyInventory(data *shoppingCart2.ModifyInventory, uid uint) (results interface{}, err error) {
+	//判断是否为清空购物车
+	//判断传参是否正确
+	//tpArr := []string{"+", "-"}
+	shoppingCartList := new(shoppingCart2.ShoppingCart)
+	if err := shoppingCartList.ModifyInventory(uid, data.ID, data.Tp); err != nil {
+		return err, nil
+	}
+	return "修改成功", nil
+}

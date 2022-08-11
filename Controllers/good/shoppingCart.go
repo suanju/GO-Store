@@ -41,3 +41,36 @@ func (gd GoodsControllers) GetShoppingCart(ctx *gin.Context) {
 	response.Success(ctx, results)
 
 }
+
+//DelShoppingCart 删除购物车商品
+func (gd GoodsControllers) DelShoppingCart(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	DelShoppingCartReceive := new(shoppingCart.DelShoppingCart)
+	if err := ctx.ShouldBind(DelShoppingCartReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := goodLogic.DelShoppingCart(DelShoppingCartReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+
+}
+
+//ModifyInventory 修改购物车购买数量
+func (gd GoodsControllers) ModifyInventory(ctx *gin.Context) {
+	userID := ctx.GetUint("currentUserID")
+	ModifyInventoryReceive := new(shoppingCart.ModifyInventory)
+	if err := ctx.ShouldBind(ModifyInventoryReceive); err != nil {
+		validator.CheckParams(ctx, err)
+		return
+	}
+	results, err := goodLogic.ModifyInventory(ModifyInventoryReceive, userID)
+	if err != nil {
+		response.Error(ctx, err.Error())
+		return
+	}
+	response.Success(ctx, results)
+}
