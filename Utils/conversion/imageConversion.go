@@ -1,8 +1,12 @@
 package conversion
 
-import "fmt"
+import (
+	"GO-Store/Databases"
+	"fmt"
+)
 
 //FormattingSrc 图片处理相关
 func FormattingSrc(src string) string {
-	return fmt.Sprintf("http://127.0.0.1:8080%s", src)
+	api := Databases.ProjectUrl
+	return fmt.Sprintf("%s%s", api, src)
 }

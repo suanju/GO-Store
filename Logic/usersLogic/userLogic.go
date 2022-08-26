@@ -1,15 +1,16 @@
 package usersLogic
 
 import (
-	"GO-Store/Config"
 	"GO-Store/Databases/Redis"
 	"GO-Store/Models/usersModel"
 	"GO-Store/Utils/email"
 	"GO-Store/Utils/jwt"
+	"GO-Store/Utils/location"
 	"crypto/md5"
 	"encoding/json"
 	"fmt"
 	"github.com/go-redis/redis"
+	"io"
 	"math/rand"
 	"net/http"
 	"time"
@@ -28,7 +29,7 @@ func WxAuthorization(data *usersModel.WxAuthorizationReceiveStruct) (results int
 		Name       string `json:"name"`
 		Phone      string `json:"phone"`
 		Nickname   string `json:"nickname"`  //微信昵称
-		Headimage  string `json:"headImage"` //微信头像
+		HeadImage  string `json:"headImage"` //微信头像
 	}
 	url := "https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code"
 	// 合成url, 这里的appId和secret是在微信公众平台上获取的
@@ -39,7 +40,12 @@ func WxAuthorization(data *usersModel.WxAuthorizationReceiveStruct) (results int
 		//response.ResponseError(ctx, err.Error())
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer func(Body io.ReadCloser) {
+		err := Body.Close()
+		if err != nil {
+
+		}
+	}(resp.Body)
 	// 解析http请求中body 数据到我们定义的结构体中
 	wxResp := WXLoginResp{}
 	decoder := json.NewDecoder(resp.Body)
@@ -110,7 +116,7 @@ func Register(data *usersModel.RegisterReceiveStruct) (results interface{}, err 
 		Username: data.UserName,
 		Salt:     string(salt),
 		Password: passwordMd5,
-		Photo:    fmt.Sprintf("%s%s%d%s", Config.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
+		Photo:    fmt.Sprintf("%s%s%d%s", location.AppConfig.ImagePath.SystemHeadPortrait, "/auto", rand.Intn(10), ".png"),
 	}
 	registerRes := registerData.Create()
 	if !registerRes {
