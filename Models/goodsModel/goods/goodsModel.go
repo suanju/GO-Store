@@ -33,6 +33,7 @@ type Goods struct {
 	Sort              int64   `json:"sort" gorm:"sort"`
 	SalesActual       int64   `json:"sales_actual" gorm:"sales_actual"`
 	Clicks            int64   `json:"clicks" gorm:"clicks"`
+	Tabs              string  `json:"tabs" gorm:"tabs"`
 	SpecType          int8    `json:"spec_type" gorm:"spec_type"`
 	Price             float64 `json:"price" gorm:"price"`
 	Stock             int64   `json:"stock" gorm:"stock"`
@@ -100,6 +101,19 @@ func (l *GoodList) SelectByLevel(level int64, pid int64, info common.PageInfo) e
 		break
 	default:
 		return fmt.Errorf("等级错误")
+	}
+	return nil
+}
+
+//SelectByTab 根据TABS查询商品
+func (l *GoodList) SelectByTab(data *GetTabsInfo, tabId uint, page int, pageSize int) error {
+	err := Mysql.Db.Raw("SELECT * FROM `ml_goods` WHERE find_in_set(?,`tabs`) LIMIT ? OFFSET ?", tabId, pageSize, (page-1)*pageSize).Scan(&data.List).Error
+	if err != nil {
+		return fmt.Errorf("查询失败")
+	}
+	err = Mysql.Db.Raw("SELECT COUNT(*) FROM `ml_goods` WHERE find_in_set(?,`tabs`)", tabId).Scan(&data.Size).Error
+	if err != nil {
+		return fmt.Errorf("查询失败")
 	}
 	return nil
 }

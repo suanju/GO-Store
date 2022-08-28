@@ -24,3 +24,11 @@ func (l *TabList) GetAllList() (err error) {
 	}
 	return nil
 }
+
+func (t *Tabs) GetInfoById() (err error) {
+	err = Mysql.Db.Find(t).Error
+	if err != nil {
+		return fmt.Errorf("查询失败")
+	}
+	return nil
+}

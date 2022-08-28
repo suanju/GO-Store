@@ -37,6 +37,11 @@ type GoodListResponse struct {
 	Sales int64   `json:"sales"`
 }
 
+type GetTabsInfo struct {
+	List GoodList `json:"list"`
+	Size int      `json:"size"`
+}
+
 type GoodResponse struct {
 	ID           uint                   `json:"id"`
 	Name         string                 `json:"name"`
