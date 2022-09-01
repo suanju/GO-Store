@@ -2,7 +2,7 @@ package usersLogic
 
 import (
 	"GO-Store/Databases/Redis"
-	"GO-Store/Models/usersModel"
+	userModel "GO-Store/Models/users"
 	"GO-Store/Utils/email"
 	"GO-Store/Utils/jwt"
 	"GO-Store/Utils/location"
@@ -16,7 +16,7 @@ import (
 	"time"
 )
 
-func WxAuthorization(data *usersModel.WxAuthorizationReceiveStruct) (results interface{}, err error) {
+func WxAuthorization(data *userModel.WxAuthorizationReceiveStruct) (results interface{}, err error) {
 	/*微信小程序登录 返回值*/
 	type WXLoginResp struct {
 		OpenId     string `json:"openid"`
@@ -54,10 +54,10 @@ func WxAuthorization(data *usersModel.WxAuthorizationReceiveStruct) (results int
 		return nil, err
 	}
 	//得到openid进行处理
-	users := new(usersModel.User)
+	users := new(userModel.User)
 	if !users.IsExistByField("openid", wxResp.OpenId) {
 		//当这个微信没有注册
-		users := usersModel.User{
+		users := userModel.User{
 			Username: data.NickName,
 			Openid:   wxResp.OpenId,
 			Photo:    data.AvatarUrl,
@@ -68,7 +68,7 @@ func WxAuthorization(data *usersModel.WxAuthorizationReceiveStruct) (results int
 		}
 		//注册token
 		tokenString := jwt.NextToken(users.ID)
-		userInfo := usersModel.UserInfoResponse{
+		userInfo := userModel.UserInfoResponse{
 			ID:       users.ID,
 			UserName: users.Username,
 			Photo:    users.Photo,
@@ -79,7 +79,7 @@ func WxAuthorization(data *usersModel.WxAuthorizationReceiveStruct) (results int
 	//已经注册的话直接返回token
 	fmt.Printf("查询到的用户id是：%v", users.ID)
 	tokenString := jwt.NextToken(users.ID)
-	userInfo := usersModel.UserInfoResponse{
+	userInfo := userModel.UserInfoResponse{
 		ID:       users.ID,
 		UserName: users.Username,
 		Photo:    users.Photo,
@@ -88,9 +88,9 @@ func WxAuthorization(data *usersModel.WxAuthorizationReceiveStruct) (results int
 	return userInfo, nil
 }
 
-func Register(data *usersModel.RegisterReceiveStruct) (results interface{}, err error) {
+func Register(data *userModel.RegisterReceiveStruct) (results interface{}, err error) {
 	//判断邮箱是否唯一
-	users := new(usersModel.User)
+	users := new(userModel.User)
 	if users.IsExistByField("email", data.Email) {
 		return nil, fmt.Errorf("邮箱已被注册")
 	}
@@ -111,7 +111,7 @@ func Register(data *usersModel.RegisterReceiveStruct) (results interface{}, err 
 	password := []byte(fmt.Sprintf("%s%s%s", salt, data.Password, salt))
 	passwordMd5 := fmt.Sprintf("%x", md5.Sum(password))
 
-	registerData := usersModel.User{
+	registerData := userModel.User{
 		Email:    data.Email,
 		Username: data.UserName,
 		Salt:     string(salt),
@@ -130,8 +130,8 @@ func Register(data *usersModel.RegisterReceiveStruct) (results interface{}, err 
 
 }
 
-func Login(data *usersModel.LoginReceiveStruct) (results interface{}, err error) {
-	users := new(usersModel.User)
+func Login(data *userModel.LoginReceiveStruct) (results interface{}, err error) {
+	users := new(userModel.User)
 	if !users.IsExistByField("email", data.Email) {
 		return nil, fmt.Errorf("账号不存在")
 	}
@@ -144,8 +144,8 @@ func Login(data *usersModel.LoginReceiveStruct) (results interface{}, err error)
 	return userInfo, nil
 }
 
-func SendEmailVerCode(data *usersModel.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
-	users := new(usersModel.User)
+func SendEmailVerCode(data *userModel.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
+	users := new(userModel.User)
 	if users.IsExistByField("email", data.Email) {
 		return nil, fmt.Errorf("邮箱已被注册")
 	}
@@ -167,9 +167,9 @@ func SendEmailVerCode(data *usersModel.SendEmailVerCodeReceiveStruct) (results i
 	return "发送成功", nil
 }
 
-func SendEmailVerCodeByForget(data *usersModel.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
+func SendEmailVerCodeByForget(data *userModel.SendEmailVerCodeReceiveStruct) (results interface{}, err error) {
 	//判断用户是否存在
-	users := new(usersModel.User)
+	users := new(userModel.User)
 	if !users.IsExistByField("email", data.Email) {
 		return nil, fmt.Errorf("该邮箱未注册")
 	}
@@ -191,9 +191,9 @@ func SendEmailVerCodeByForget(data *usersModel.SendEmailVerCodeReceiveStruct) (r
 	return "发送成功", nil
 }
 
-func Forget(data *usersModel.ForgetReceiveStruct) (results interface{}, err error) {
+func Forget(data *userModel.ForgetReceiveStruct) (results interface{}, err error) {
 	//判断邮箱是否唯一
-	users := new(usersModel.User)
+	users := new(userModel.User)
 	if !users.IsExistByField("email", data.Email) {
 		return nil, fmt.Errorf("该账号不存在")
 	}
@@ -214,7 +214,7 @@ func Forget(data *usersModel.ForgetReceiveStruct) (results interface{}, err erro
 	password := []byte(fmt.Sprintf("%s%s%s", salt, data.Password, salt))
 	passwordMd5 := fmt.Sprintf("%x", md5.Sum(password))
 
-	registerData := usersModel.User{
+	registerData := userModel.User{
 		Salt:     string(salt),
 		Password: passwordMd5,
 	}

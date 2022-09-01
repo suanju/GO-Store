@@ -2,8 +2,8 @@ package homeLogic
 
 import (
 	"GO-Store/Databases/Mysql"
-	"GO-Store/Models/homeModel/banner"
-	"GO-Store/Models/homeModel/special"
+	"GO-Store/Models/home/banner"
+	"GO-Store/Models/home/special"
 )
 
 func GetBannerList(data *banner.GetBannerListStruct) (results interface{}, err error) {

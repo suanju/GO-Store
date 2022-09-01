@@ -3,8 +3,8 @@ package home
 import (
 	"GO-Store/Controllers"
 	"GO-Store/Logic/homeLogic"
-	"GO-Store/Models/homeModel/banner"
-	"GO-Store/Models/homeModel/special"
+	"GO-Store/Models/home/banner"
+	"GO-Store/Models/home/special"
 	"GO-Store/Utils/response"
 	"GO-Store/Utils/validator"
 	"github.com/gin-gonic/gin"

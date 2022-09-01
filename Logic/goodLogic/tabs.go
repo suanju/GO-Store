@@ -1,8 +1,8 @@
 package goodLogic
 
 import (
-	"GO-Store/Models/goodsModel/goods"
-	"GO-Store/Models/goodsModel/tabs"
+	"GO-Store/Models/goods/goods"
+	"GO-Store/Models/goods/tabs"
 	"GO-Store/Utils/calculate"
 )
 

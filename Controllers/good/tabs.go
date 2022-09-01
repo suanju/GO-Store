@@ -2,7 +2,7 @@ package good
 
 import (
 	"GO-Store/Logic/goodLogic"
-	"GO-Store/Models/goodsModel/tabs"
+	"GO-Store/Models/goods/tabs"
 	"GO-Store/Utils/response"
 	"GO-Store/Utils/validator"
 	"github.com/gin-gonic/gin"

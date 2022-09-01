@@ -1,8 +1,8 @@
 package goodLogic
 
 import (
-	"GO-Store/Models/goodsModel/goods"
-	"GO-Store/Models/usersModel/likeGoods"
+	"GO-Store/Models/goods/goods"
+	"GO-Store/Models/users/likeGoods"
 	"fmt"
 )
 

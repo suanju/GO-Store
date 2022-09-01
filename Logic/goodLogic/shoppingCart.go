@@ -1,7 +1,7 @@
 package goodLogic
 
 import (
-	shoppingCart2 "GO-Store/Models/usersModel/shoppingCart"
+	shoppingCart2 "GO-Store/Models/users/shoppingCart"
 	"fmt"
 )
 

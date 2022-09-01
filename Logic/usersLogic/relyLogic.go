@@ -1,7 +1,7 @@
 package usersLogic
 
 import (
-	"GO-Store/Models/usersModel/address"
+	"GO-Store/Models/users/address"
 	"fmt"
 )
 

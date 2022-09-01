@@ -3,7 +3,7 @@ package users
 import (
 	"GO-Store/Controllers"
 	"GO-Store/Logic/usersLogic"
-	"GO-Store/Models/usersModel/address"
+	"GO-Store/Models/users/address"
 	"GO-Store/Utils/response"
 	"GO-Store/Utils/validator"
 	"github.com/gin-gonic/gin"

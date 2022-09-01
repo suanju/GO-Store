@@ -1,7 +1,7 @@
 package goodLogic
 
 import (
-	"GO-Store/Models/goodsModel/category"
+	"GO-Store/Models/goods/category"
 	"fmt"
 )
 

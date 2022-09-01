@@ -2,7 +2,7 @@ package usersLogic
 
 import (
 	commonModels "GO-Store/Models/common"
-	"GO-Store/Models/usersModel/address"
+	"GO-Store/Models/users/address"
 	"GO-Store/Utils/conversion"
 	"GO-Store/Utils/validator"
 	"fmt"
