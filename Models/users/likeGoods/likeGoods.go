@@ -36,3 +36,10 @@ func (lg *LikeGoods) Like(uid uint, goodId uint) bool {
 	return true
 
 }
+
+func (lg *LikeGoods) IsLike() bool {
+	if lg.ID > 0 {
+		return true
+	}
+	return false
+}
