@@ -1,4 +1,4 @@
-package goodLogic
+package good
 
 import (
 	shoppingCart2 "GO-Store/Models/users/shoppingCart"

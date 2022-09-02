@@ -2,7 +2,7 @@ package users
 
 import (
 	"GO-Store/Controllers"
-	"GO-Store/Logic/usersLogic"
+	"GO-Store/Logic/users"
 	"GO-Store/Models/users/address"
 	"GO-Store/Utils/response"
 	"GO-Store/Utils/validator"
@@ -21,7 +21,7 @@ func (us UserControllers) SetAddress(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := usersLogic.SetAddress(userID, setAddressReceive)
+	results, err := users.SetAddress(userID, setAddressReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -32,7 +32,7 @@ func (us UserControllers) SetAddress(ctx *gin.Context) {
 //GetAddressList 获取用户地址列表
 func (us UserControllers) GetAddressList(ctx *gin.Context) {
 	userID := ctx.GetUint("currentUserID")
-	results, err := usersLogic.GetAddressList(userID)
+	results, err := users.GetAddressList(userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

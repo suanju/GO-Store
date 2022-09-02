@@ -1,4 +1,4 @@
-package homeLogic
+package home
 
 import (
 	"GO-Store/Databases/Mysql"

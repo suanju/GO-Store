@@ -1,4 +1,4 @@
-package usersLogic
+package users
 
 import (
 	commonModels "GO-Store/Models/common"

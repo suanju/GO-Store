@@ -1,4 +1,4 @@
-package goodLogic
+package good
 
 import (
 	"GO-Store/Models/goods/goods"

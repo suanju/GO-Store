@@ -1,7 +1,7 @@
 package good
 
 import (
-	"GO-Store/Logic/goodLogic"
+	"GO-Store/Logic/good"
 	"GO-Store/Models/users/shoppingCart"
 	"GO-Store/Utils/response"
 	"GO-Store/Utils/validator"
@@ -16,7 +16,7 @@ func (gd GoodsControllers) AddShoppingCart(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.AddShoppingCart(AddShoppingCartReceive, userID)
+	results, err := good.AddShoppingCart(AddShoppingCartReceive, userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -33,7 +33,7 @@ func (gd GoodsControllers) GetShoppingCart(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.GetShoppingCart(userID)
+	results, err := good.GetShoppingCart(userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -50,7 +50,7 @@ func (gd GoodsControllers) DelShoppingCart(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.DelShoppingCart(DelShoppingCartReceive, userID)
+	results, err := good.DelShoppingCart(DelShoppingCartReceive, userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -67,7 +67,7 @@ func (gd GoodsControllers) ModifyInventory(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.ModifyInventory(ModifyInventoryReceive, userID)
+	results, err := good.ModifyInventory(ModifyInventoryReceive, userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

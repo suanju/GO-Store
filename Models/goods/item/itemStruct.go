@@ -14,7 +14,7 @@ type ItemsResponse struct {
 	Stock        int64    `json:"stock"`
 }
 
-type ItemsResponseList []ItemsResponse
+type ItemsResponseLite []ItemsResponse
 
 func (l *List) Response() []ItemsResponse {
 	var list []ItemsResponse

@@ -56,7 +56,7 @@ type GoodResponse struct {
 	Content      string                 `json:"content"`
 	Spec         spec.List              `json:"spec"`
 	SpecValue    spec2.ValueList        `json:"spec_value"`
-	Item         item.ItemsResponseList `json:"item"`
+	Item         item.ItemsResponseLite `json:"item"`
 	SeverList    []string               `json:"sever_list"`
 	Comments     comments.ListResponse  `json:"comments"`
 	Like         bool                   `json:"like" `

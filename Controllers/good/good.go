@@ -2,7 +2,7 @@ package good
 
 import (
 	"GO-Store/Controllers"
-	"GO-Store/Logic/goodLogic"
+	"GO-Store/Logic/good"
 	"GO-Store/Models/goods/goods"
 	"GO-Store/Utils/response"
 	"GO-Store/Utils/validator"
@@ -21,7 +21,7 @@ func (gd GoodsControllers) GetClassifyByLevel(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.GetClassifyByLevel(GetClassifyByLevelReceive)
+	results, err := good.GetClassifyByLevel(GetClassifyByLevelReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -38,7 +38,7 @@ func (gd GoodsControllers) GetGoodInfo(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.GetGoodInfo(GetGoodInfoReceive, userID)
+	results, err := good.GetGoodInfo(GetGoodInfoReceive, userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -55,7 +55,7 @@ func (gd GoodsControllers) Collection(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.Collection(GetCollectionReceive, userID)
+	results, err := good.Collection(GetCollectionReceive, userID)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

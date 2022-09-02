@@ -1,7 +1,7 @@
 package users
 
 import (
-	"GO-Store/Logic/usersLogic"
+	"GO-Store/Logic/users"
 	"GO-Store/Models/users/address"
 	"GO-Store/Utils/response"
 	validatorZh "GO-Store/Utils/validator"
@@ -22,7 +22,7 @@ func (us UserControllers) GetAddressTable(ctx *gin.Context) {
 		}
 		return
 	}
-	results, err := usersLogic.GetAddressTable(addressTableReceive)
+	results, err := users.GetAddressTable(addressTableReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

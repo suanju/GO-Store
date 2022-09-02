@@ -1,7 +1,7 @@
 package good
 
 import (
-	"GO-Store/Logic/goodLogic"
+	"GO-Store/Logic/good"
 	"GO-Store/Models/goods/tabs"
 	"GO-Store/Utils/response"
 	"GO-Store/Utils/validator"
@@ -15,7 +15,7 @@ func (gd GoodsControllers) GetTabs(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.GetTabs(GetTabsReceive)
+	results, err := good.GetTabs(GetTabsReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -31,7 +31,7 @@ func (gd GoodsControllers) GetTabsInfo(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := goodLogic.GetTabsInfo(GetTabsInfoReceive)
+	results, err := good.GetTabsInfo(GetTabsInfoReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

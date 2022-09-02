@@ -2,7 +2,7 @@ package home
 
 import (
 	"GO-Store/Controllers"
-	"GO-Store/Logic/homeLogic"
+	"GO-Store/Logic/home"
 	"GO-Store/Models/home/banner"
 	"GO-Store/Models/home/special"
 	"GO-Store/Utils/response"
@@ -22,7 +22,7 @@ func (hm HomesControllers) GetBannerList(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := homeLogic.GetBannerList(GetBannerListReceive)
+	results, err := home.GetBannerList(GetBannerListReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return
@@ -39,7 +39,7 @@ func (hm HomesControllers) GetSpecialList(ctx *gin.Context) {
 		validator.CheckParams(ctx, err)
 		return
 	}
-	results, err := homeLogic.GetSpecialList(GetSpecialListReceive)
+	results, err := home.GetSpecialList(GetSpecialListReceive)
 	if err != nil {
 		response.Error(ctx, err.Error())
 		return

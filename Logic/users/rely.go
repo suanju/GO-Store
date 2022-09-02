@@ -1,4 +1,4 @@
-package usersLogic
+package users
 
 import (
 	"GO-Store/Models/users/address"
